@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       title: 'Flutter Demo',
       theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Color(0xFF35578B),
+        ),
         inputDecorationTheme: InputDecorationTheme(
             focusColor: Config.primaryColor,
             border: Config.outlinedBorder,
@@ -29,14 +32,13 @@ class MyApp extends StatelessWidget {
             prefixIconColor: Colors.black38),
         scaffoldBackgroundColor: Colors.white,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Config.primaryColor,
+            backgroundColor: Color(0xFF35578B),
             selectedItemColor: Colors.white,
             showSelectedLabels: true,
             showUnselectedLabels: false,
             unselectedItemColor: Colors.grey,
             elevation: 10,
             type: BottomNavigationBarType.fixed),
-        primarySwatch: Colors.blue,
       ),
       initialRoute: '/',
       routes: {

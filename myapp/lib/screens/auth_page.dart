@@ -27,14 +27,14 @@ class AuthPage extends StatelessWidget {
               AppText.enText['signUp_text']!,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            Center(
-              child: Image.asset(
-                "assets/images/welcome.png",
-                height: 100,
-                width: 100,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
+            // Center(
+            //   child: Image.asset(
+            //     "images/welcome.png",
+            //     height: 100,
+            //     width: 50,
+            //     fit: BoxFit.cover,
+            //   ),
+            // ),
             Config.spaceSmall,
             LoginForm(),
             Config.spaceSmall,

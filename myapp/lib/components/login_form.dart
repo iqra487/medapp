@@ -39,8 +39,8 @@ class _LoginFormState extends State<LoginForm> {
               obscureText: true,
               cursorColor: Config.primaryColor,
               decoration: InputDecoration(
-                  hintText: 'Pass Address',
-                  labelText: 'Pass',
+                  hintText: 'Password',
+                  labelText: 'Password',
                   alignLabelWithHint: true,
                   prefixIcon: Icon(Icons.password_outlined),
                   prefixIconColor: Colors.black38,
@@ -63,7 +63,9 @@ class _LoginFormState extends State<LoginForm> {
                 width: double.infinity,
                 title: 'Sign In',
                 disable: false,
-                onPressed: () {})
+                onPressed: () {
+                  Navigator.of(context).pushNamed('main');
+                })
           ],
         ));
   }

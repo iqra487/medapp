@@ -35,12 +35,33 @@ class Config {
 
   static const focusBorder = OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
-      borderSide: BorderSide(color: Color.fromARGB(255, 39, 179, 239)));
+      borderSide: BorderSide(color: Color.fromARGB(255, 53, 87, 139)));
 
   static const errorBorder = OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
       borderSide: BorderSide(color: Colors.red));
 
-  static const primaryColor = Color.fromARGB(255, 39, 179, 239);
+  // static const primaryColor = Color.fromARGB(255, 39, 179, 239);
+  static const primaryColor = Color.fromARGB(255, 53, 87, 139);
   // static const primaryColor = Color.fromRGBO(168, 169, 211, 0.8);
+
+  static const blueGradientColor = RadialGradient(
+    colors: [
+      Color.fromARGB(255, 79, 115, 187),
+      Color.fromARGB(255, 53, 87, 139),
+    ],
+    radius: 1,
+    focal: Alignment(0.5, -0.5),
+    tileMode: TileMode.clamp,
+  );
+
+  static const greyGradientColor = RadialGradient(
+    colors: [
+      Color.fromARGB(255, 79, 115, 187),
+      Color.fromARGB(255, 71, 72, 74),
+    ],
+    radius: 1,
+    focal: Alignment(0.5, -0.5),
+    tileMode: TileMode.clamp,
+  );
 }
