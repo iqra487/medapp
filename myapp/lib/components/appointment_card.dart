@@ -43,7 +43,8 @@ class _AppointmentCardState extends State<AppointmentCard> {
                       SizedBox(height: 2),
                       "General Physician".text.white.make(),
                       Config.spaceSmall,
-                      ScheduleCard(),
+                      ScheduleCard(
+                          borderColor: Colors.white, textColor: Colors.black),
                       Config.spaceSmall,
                     ],
                   ),
@@ -80,16 +81,22 @@ class _AppointmentCardState extends State<AppointmentCard> {
 }
 
 class ScheduleCard extends StatelessWidget {
-  const ScheduleCard({super.key});
+  ScheduleCard({required this.borderColor, required this.textColor, super.key});
+  final Color borderColor;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(10)),
+            color: borderColor, borderRadius: BorderRadius.circular(10)),
         // width: double.infinity,
         padding: const EdgeInsets.all(10),
-        child: "July 5th, 9:00AM".text.bold.black.xl.makeCentered());
+        child: Text(
+          'July 5th 9:00AM',
+          style: TextStyle(
+              color: textColor, fontWeight: FontWeight.bold, fontSize: 16),
+        ));
   }
 }
 // child: Row(

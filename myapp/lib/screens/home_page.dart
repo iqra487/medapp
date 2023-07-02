@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myapp/components/appointment_card.dart';
+import 'package:myapp/components/doctor_card.dart';
 import 'package:myapp/components/search_field.dart';
 import 'package:myapp/utils/config.dart';
 
@@ -103,7 +104,19 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Config.spaceSmall,
-              AppointmentCard()
+              AppointmentCard(),
+              Config.spaceSmall,
+              Text(
+                "Top Doctors",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              Config.spaceSmall,
+              Column(
+                children: List.generate(10, (index) {
+                  return const DoctorCard(route: 'doc_details');
+                }),
+              )
+              // doctors card
             ],
           ),
         )),
