@@ -13,11 +13,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //categories initialized
   List<Map<String, dynamic>> medCat = [
     {"icon": FontAwesomeIcons.userDoctor, "category": "General"},
     {"icon": FontAwesomeIcons.userDoctor, "category": "Specialists"},
-    // {"icon": FontAwesomeIcons.userDoctor, "category": "24/7"},
-    // {"icon": FontAwesomeIcons.userDoctor, "category": "Grooming"}
   ];
   @override
   Widget build(BuildContext context) {
@@ -36,6 +35,7 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    //username and user profile picture
                     Text(
                       "UserName",
                       style:
@@ -52,6 +52,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Config.spaceSmall,
+
+              //category section
               Text(
                 "Category",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -97,8 +99,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )),
               Config.spaceSmall,
+              //search field, user can search what they are looking for like category, animal category,areas where doctors are nearest to them
               SearchField(),
               Config.spaceSmall,
+              //upcoming schedule section, this should only show if there is any appointment else it should show no appointments
               Text(
                 "Upcoming Schedule",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -106,6 +110,7 @@ class _HomePageState extends State<HomePage> {
               Config.spaceSmall,
               AppointmentCard(),
               Config.spaceSmall,
+              //
               Text(
                 "Top Doctors",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -120,6 +125,37 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         )),
+      ),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

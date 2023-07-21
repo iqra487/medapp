@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/components/appointment_card.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:velocity_x/velocity_x.dart';
+//this page include appointment details like upcoming, completed and canceled appointments that user have had so far
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({super.key});
@@ -13,9 +14,13 @@ class AppointmentPage extends StatefulWidget {
 enum FilterStatus { upcoming, completed, canceled }
 
 class _AppointmentPageState extends State<AppointmentPage> {
+  //appointments will be filtered depending upon their status
+
   FilterStatus status = FilterStatus.upcoming;
   Alignment _alignment = Alignment.centerLeft;
-  List<dynamic> schedules = [
+  List<dynamic> schedules =
+      //hardcoded doctors data, it doesnot include about and description of the data but it would also be required
+      [
     {
       "doctor_name": "Pawan Kumar",
       "doctor_profile": "assets/images/doctor_pic1.jpg",
@@ -23,7 +28,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
       "status": FilterStatus.upcoming
     },
     {
-      "doctor_name": "Talha Ahmed",
+      "doctor_name": "Dr Osama",
       "doctor_profile": "assets/images/doctor_pic1.jpg",
       "Category": "surgeon",
       "status": FilterStatus.completed
@@ -35,7 +40,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
       "status": FilterStatus.completed
     },
     {
-      "doctor_name": "Adina Khalid",
+      "doctor_name": "Dr abudl qadeer",
       "doctor_profile": "assets/images/doctor_pic1.jpg",
       "Category": "general physician",
       "status": FilterStatus.canceled
@@ -48,6 +53,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
       return schedule['status'] == status;
     }).toList();
     return SafeArea(
+        //decoration
         child: Padding(
       padding: EdgeInsets.only(top: 20, right: 20, left: 20),
       child: Column(
@@ -72,6 +78,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           child: GestureDetector(
                         onTap: () {
                           setState(() {
+                            //checking status of appointmnents
                             if (filterStatus == FilterStatus.upcoming) {
                               status = FilterStatus.upcoming;
                               _alignment = Alignment.centerLeft;
@@ -89,6 +96,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                   ],
                 ),
               ),
+              //decoration
               AnimatedAlign(
                 alignment: _alignment,
                 duration: Duration(milliseconds: 200),
@@ -109,6 +117,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
               ),
             ],
           ),
+          //appointment lists
           Config.spaceSmall,
           Expanded(
               child: ListView.builder(

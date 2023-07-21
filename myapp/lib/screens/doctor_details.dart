@@ -5,6 +5,7 @@ import 'package:myapp/components/custom_appbar.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
+//this page is for doctor details which includes doctor's name, picture, details, short desription etc
 
 class DoctorDetails extends StatefulWidget {
   const DoctorDetails({super.key});
@@ -18,6 +19,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //appbar
       appBar: CustomAppBar(
         appTitle: 'About Doctor',
         icon: const FaIcon(Icons.arrow_back),
@@ -39,8 +41,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           child: SingleChildScrollView(
         child: Column(
           children: [
+            //doc name, picture and qualification details, hospital names
             AboutDoctor(),
+            //description, experience , reviews
             DetailBody(),
+            //book appointment button; navigates to booking page
             Padding(
               padding: EdgeInsets.all(20),
               child: Button(

@@ -5,6 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../components/custom_appbar.dart';
 import '../utils/config.dart';
+//appointment booking page
 
 class BookingPage extends StatefulWidget {
   const BookingPage({super.key});
@@ -91,6 +92,7 @@ class _BookingPageState extends State<BookingPage> {
                       _timeSelected = true;
                     });
                   },
+                  //select time
                   child: Container(
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
@@ -114,12 +116,14 @@ class _BookingPageState extends State<BookingPage> {
               }, childCount: 8),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4, childAspectRatio: 1.5)),
+          //make appointment button
           SliverToBoxAdapter(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 80),
               child: Button(
                   width: double.infinity,
                   title: "make appointment",
+                  //appointment can only be made if time and date are both selected
                   disable: _timeSelected && _dateSelected ? false : true,
                   onPressed: () {
                     Navigator.of(context).pushNamed('success_page');

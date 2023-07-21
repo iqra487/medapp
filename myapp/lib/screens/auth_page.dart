@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:myapp/components/login_form.dart';
+import 'package:myapp/components/sign_up_form.dart';
 import 'package:myapp/components/social_button.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:myapp/utils/text.dart';
 // import 'package:velocity_x/velocity_x.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
+
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  //if user already has an account or not
+  bool isSignIn = true;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +34,10 @@ class AuthPage extends StatelessWidget {
             ),
             Config.spaceSmall,
             Text(
-              AppText.enText['signUp_text']!,
+              //if user has an account then sign up text would show else register
+              isSignIn
+                  ? AppText.enText['signUp_text']!
+                  : AppText.enText['register_text']!,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             // Center(
@@ -36,20 +49,24 @@ class AuthPage extends StatelessWidget {
             //   ),
             // ),
             Config.spaceSmall,
-            LoginForm(),
+            //if user has an account then login form would show up else sign up
+            isSignIn ? LoginForm() : SignUpForm(),
             Config.spaceSmall,
-            Center(
-              child: TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    AppText.enText['forgot-password']!,
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  )),
-            ),
+            isSignIn
+                ? Center(
+                    child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          AppText.enText['forgot-password']!,
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        )),
+                  )
+                : Container(),
             const Spacer(),
+            //for login thru social media(google/facebook)
             Center(
               child: Text(
                 AppText.enText['social-login']!,
@@ -65,6 +82,23 @@ class AuthPage extends StatelessWidget {
               children: [
                 SocialButton(social: 'facebook'),
                 SocialButton(social: 'google')
+              ],
+            ),
+            Config.spaceSmall,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //sign up or sign in option
+                Text(isSignIn
+                    ? AppText.enText['signUp_text']!
+                    : AppText.enText['registered_text']!),
+                TextButton(
+                    onPressed: () {
+                      setState(() {
+                        isSignIn = !isSignIn;
+                      });
+                    },
+                    child: Text(isSignIn ? 'Sign Up' : 'Sign In'))
               ],
             )
           ],
