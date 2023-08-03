@@ -5,6 +5,8 @@ import 'package:myapp/components/doctor_card.dart';
 import 'package:myapp/components/search_field.dart';
 import 'package:myapp/utils/config.dart';
 
+import 'animated_drawer.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -13,6 +15,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey(); // Add this line
+
+  void _openDrawer(BuildContext context) {
+    if (_scaffoldKey.currentState != null) {
+      // Check for null safety
+      _scaffoldKey.currentState!
+          .openDrawer(); // Use _scaffoldKey to open the drawer
+    }
+  }
+
   //categories initialized
   List<Map<String, dynamic>> medCat = [
     {"icon": FontAwesomeIcons.userDoctor, "category": "General"},
@@ -23,6 +35,7 @@ class _HomePageState extends State<HomePage> {
     Config().init(context);
 
     return Scaffold(
+      key: _scaffoldKey,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: SafeArea(
@@ -31,24 +44,37 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Card(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    //username and user profile picture
-                    Text(
-                      "UserName",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      child: CircleAvatar(
-                        radius: 30,
+              // const Card(
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       //username and user profile picture
+              //       Text(
+              //         "UserName",
+              //         style:
+              //             TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              //       ),
+              //       SizedBox(
+              //         child: CircleAvatar(
+              //           radius: 30,
+              //           backgroundImage:
+              //               AssetImage('assets/images/profile_pic1.jpg'),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              GestureDetector(
+                onTap: () => _openDrawer(context),
+                child: Card(
+                  elevation: null,
+                  child: ListTile(
+                    leading: CircleAvatar(
                         backgroundImage:
-                            AssetImage('assets/images/profile_pic1.jpg'),
-                      ),
-                    ),
-                  ],
+                            AssetImage("assets/images/profile_pic1.jpg")),
+                    title: Text("John Doe"),
+                    subtitle: Text("Brutus' companion"),
+                  ),
                 ),
               ),
               Config.spaceSmall,
@@ -126,37 +152,7 @@ class _HomePageState extends State<HomePage> {
           ),
         )),
       ),
-      drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: AnimatedDrawer(),
     );
   }
 }

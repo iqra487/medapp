@@ -29,10 +29,12 @@ class _MainLayoutState extends State<MainLayout> {
           HomePage(),
           AppointmentPage(),
           ChatBot(),
-          FavPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        selectedItemColor: Color.fromARGB(255, 53, 87, 139),
+        unselectedItemColor: Color.fromARGB(255, 53, 87, 139),
         currentIndex: currentPage,
         onTap: (page) {
           setState(() {
@@ -42,17 +44,19 @@ class _MainLayoutState extends State<MainLayout> {
                 curve: Curves.easeInOut);
           });
         },
-        items: <BottomNavigationBarItem>[
+        items: [
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.houseChimneyMedical),
-              label: 'Home'),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.solidCalendarCheck),
-              label: 'Appointments'),
+            icon: Icon(Icons.calendar_today_outlined),
+            label: 'Appointments',
+          ),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.robot), label: 'Chatbot'),
-          BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.heart), label: 'Favorites'),
+            icon: Icon(Icons.chat_bubble_outline),
+            label: 'Chat',
+          ),
         ],
       ),
     );

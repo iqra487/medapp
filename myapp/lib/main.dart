@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:myapp/screens/auth_page.dart';
 import 'package:myapp/screens/booking_page.dart';
 import 'package:myapp/screens/doctor_details.dart';
+import 'package:myapp/screens/favorite_page.dart';
 import 'package:myapp/screens/success_booked.dart';
+import 'package:myapp/screens/user_profile.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:myapp/utils/main_layout.dart';
 
@@ -49,7 +51,9 @@ class MyApp extends StatelessWidget {
         'main': (context) => MainLayout(),
         'doc_details': (context) => DoctorDetails(),
         'booking_page': (context) => BookingPage(),
-        'success_page': (context) => AppointmentBooked()
+        'success_page': (context) => AppointmentBooked(),
+        'user_profile': (context) => UserProfile(),
+        'fav_page': (context) => FavPage()
       },
     );
   }
