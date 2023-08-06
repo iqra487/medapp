@@ -4,105 +4,180 @@ import 'package:myapp/components/login_form.dart';
 import 'package:myapp/components/sign_up_form.dart';
 import 'package:myapp/components/social_button.dart';
 import 'package:myapp/utils/config.dart';
+
+import 'package:simple_animations/simple_animations.dart';
 import 'package:myapp/utils/text.dart';
-// import 'package:velocity_x/velocity_x.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+import '../components/FadeAnimation.dart';
 
-  @override
-  State<AuthPage> createState() => _AuthPageState();
-}
-
-class _AuthPageState extends State<AuthPage> {
-  //if user already has an account or not
-  bool isSignIn = true;
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-        child: SafeArea(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+          Color.fromARGB(255, 53, 87, 139),
+          Color.fromARGB(255, 79, 115, 187),
+          Color.fromARGB(255, 143, 171, 213),
+        ])),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              AppText.enText['welcome_text']!,
-              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            SizedBox(
+              height: 80,
             ),
-            Config.spaceSmall,
-            Text(
-              //if user has an account then sign up text would show else register
-              isSignIn
-                  ? AppText.enText['signUp_text']!
-                  : AppText.enText['register_text']!,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            // Center(
-            //   child: Image.asset(
-            //     "images/welcome.png",
-            //     height: 100,
-            //     width: 50,
-            //     fit: BoxFit.cover,
-            //   ),
-            // ),
-            Config.spaceSmall,
-            //if user has an account then login form would show up else sign up
-            isSignIn ? LoginForm() : SignUpForm(),
-            Config.spaceSmall,
-            isSignIn
-                ? Center(
-                    child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          AppText.enText['forgot-password']!,
-                          style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        )),
-                  )
-                : Container(),
-            const Spacer(),
-            //for login thru social media(google/facebook)
-            Center(
-              child: Text(
-                AppText.enText['social-login']!,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  FadeAnimation(
+                      1,
+                      Text(
+                        "Login",
+                        style: TextStyle(color: Colors.white, fontSize: 40),
+                      )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FadeAnimation(
+                      1.3,
+                      const Text(
+                        "Welcome Back",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      )),
+                ],
               ),
             ),
-            Config.spaceSmall,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SocialButton(social: 'facebook'),
-                SocialButton(social: 'google')
-              ],
-            ),
-            Config.spaceSmall,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //sign up or sign in option
-                Text(isSignIn
-                    ? AppText.enText['signUp_text']!
-                    : AppText.enText['registered_text']!),
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        isSignIn = !isSignIn;
-                      });
-                    },
-                    child: Text(isSignIn ? 'Sign Up' : 'Sign In'))
-              ],
+            const SizedBox(height: 20),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(60),
+                        topRight: Radius.circular(60))),
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(30),
+                    child: Column(
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 60,
+                        ),
+                        FadeAnimation(
+                            1.4,
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              width: MediaQuery.of(context).size.width * 1,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Color.fromARGB(79, 53, 87, 139),
+                                        blurRadius: 20,
+                                        offset: Offset(0, 10))
+                                  ]),
+                              child: Column(
+                                children: <Widget>[LoginForm()],
+                              ),
+                            )),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        FadeAnimation(
+                            1.5,
+                            Text(
+                              "Forgot Password?",
+                              style: TextStyle(color: Colors.grey),
+                            )),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        // FadeAnimation(
+                        //     1.6,
+                        //     Container(
+                        //       height: 50,
+                        //       margin: EdgeInsets.symmetric(horizontal: 50),
+                        //       decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(50),
+                        //           color: Config.primaryColor),
+                        //       child: Center(
+                        //         child: Text(
+                        //           "Login",
+                        //           style: TextStyle(
+                        //               color: Colors.white,
+                        //               fontWeight: FontWeight.bold),
+                        //         ),
+                        //       ),
+                        //     )),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        FadeAnimation(
+                            1.7,
+                            Text(
+                              "Continue with social media",
+                              style: TextStyle(color: Colors.grey),
+                            )),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: FadeAnimation(
+                                  1.8,
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: Colors.blue),
+                                    child: Center(
+                                      child: Text(
+                                        "Facebook",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Expanded(
+                              child: FadeAnimation(
+                                  1.9,
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        color: Colors.black),
+                                    child: Center(
+                                      child: Text(
+                                        "Github",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  )),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             )
           ],
-        )),
+        ),
       ),
     );
   }

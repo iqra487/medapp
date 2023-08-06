@@ -1,19 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/components/button.dart';
 import 'package:myapp/utils/config.dart';
+import 'package:http/http.dart' as http; // Import the http package
+import 'dart:convert';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  LoginForm({super.key});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _formKey = GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   bool obsecurePass = true;
+
+  void _handleLogin() async {
+    if (_formKey.currentState!.validate()) {
+      // Form validation succeeded, proceed with login request
+
+      final String email = _emailController.text;
+      final String password = _passController.text;
+
+      // Replace this URL with your login API endpoint
+      // TODO save hosturl in .env file and get it from there
+      final String loginUrl = 'http://localhost:8000/api/login/';
+
+      final response = await http.post(
+        Uri.parse(loginUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'username': email, 'password': password}),
+      );
+
+      if (response.statusCode == 200) {
+        // Login successful, navigate to main screen
+        Navigator.of(context).pushNamed('main');
+      } else {
+        // Login failed, show an error message
+        final responseData = jsonDecode(response.body);
+        final errorMessage = responseData['message'] ?? 'Login failed';
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Error'),
+            content: Text(errorMessage),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -26,6 +70,8 @@ class _LoginFormState extends State<LoginForm> {
               keyboardType: TextInputType.emailAddress,
               cursorColor: Config.primaryColor,
               decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
                   hintText: 'Email Address',
                   labelText: 'Email',
                   alignLabelWithHint: true,
@@ -39,6 +85,8 @@ class _LoginFormState extends State<LoginForm> {
               obscureText: true,
               cursorColor: Config.primaryColor,
               decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
                   hintText: 'Password',
                   labelText: 'Password',
                   alignLabelWithHint: true,
@@ -60,12 +108,13 @@ class _LoginFormState extends State<LoginForm> {
             ),
             Config.spaceSmall,
             Button(
-                width: double.infinity,
-                title: 'Sign In',
-                disable: false,
-                onPressed: () {
-                  Navigator.of(context).pushNamed('main');
-                })
+              title: 'Login',
+              width: 150,
+              disable: false,
+              onPressed: () {
+                Navigator.of(context).pushNamed('main');
+              },
+            )
           ],
         ));
   }

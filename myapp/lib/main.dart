@@ -10,6 +10,7 @@ import 'package:myapp/utils/main_layout.dart';
 
 void main() {
   runApp(const MyApp());
+  // MaterialApp(home: LoginPage(),);
 }
 
 class MyApp extends StatelessWidget {
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => AuthPage(),
+        '/': (context) => LoginPage(),
         'main': (context) => MainLayout(),
         'doc_details': (context) => DoctorDetails(),
         'booking_page': (context) => BookingPage(),
