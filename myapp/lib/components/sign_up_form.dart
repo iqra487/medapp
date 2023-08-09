@@ -27,6 +27,8 @@ class _SignUpFormState extends State<SignUpForm> {
               keyboardType: TextInputType.text,
               cursorColor: Config.primaryColor,
               decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
                   hintText: 'Username',
                   labelText: 'Username',
                   alignLabelWithHint: true,
@@ -39,6 +41,8 @@ class _SignUpFormState extends State<SignUpForm> {
               keyboardType: TextInputType.emailAddress,
               cursorColor: Config.primaryColor,
               decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
                   hintText: 'Email Address',
                   labelText: 'Email',
                   alignLabelWithHint: true,
@@ -52,6 +56,8 @@ class _SignUpFormState extends State<SignUpForm> {
               obscureText: true,
               cursorColor: Config.primaryColor,
               decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey)),
                   hintText: 'Password',
                   labelText: 'Password',
                   alignLabelWithHint: true,
@@ -73,7 +79,7 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             Config.spaceSmall,
             Button(
-                width: double.infinity,
+                width: 150,
                 title: 'Sign Up',
                 disable: false,
                 onPressed: () {

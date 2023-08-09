@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myapp/screens/appointment_page.dart';
-import 'package:myapp/screens/chatbot.dart';
+import 'package:myapp/screens/chat_page.dart';
 import 'package:myapp/screens/favorite_page.dart';
 import 'package:myapp/screens/home_page.dart';
 
@@ -28,7 +28,7 @@ class _MainLayoutState extends State<MainLayout> {
         children: [
           HomePage(),
           AppointmentPage(),
-          ChatBot(),
+          ChatPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

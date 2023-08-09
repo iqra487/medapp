@@ -64,3 +64,36 @@ class DoctorCard extends StatelessWidget {
     );
   }
 }
+
+class DoctorChatCard extends StatelessWidget {
+  const DoctorChatCard({super.key, required this.route});
+  final String route;
+
+  @override
+  Widget build(BuildContext context) {
+    Config().init(context);
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      height: 100,
+      child: GestureDetector(
+          child: Card(
+        margin: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10), // Set border radius
+          // side: BorderSide(color: Colors.grey),
+        ),
+        elevation: 2,
+        color: Colors.white,
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundImage: AssetImage('assets/images/doctor_pic1.jpg'),
+            maxRadius: 30,
+          ),
+          title: "Dr. Richard".text.xl.bold.make(),
+          trailing: "11:59AM".text.sm.make(),
+          subtitle: "okay, thanks".text.medium.make(),
+        ),
+      )),
+    );
+  }
+}

@@ -10,8 +10,8 @@ import 'package:myapp/utils/text.dart';
 
 import '../components/FadeAnimation.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegistrationPage extends StatelessWidget {
+  const RegistrationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
                   FadeAnimation(
                       1,
                       Text(
-                        "Login",
+                        "Sign Up",
                         style: TextStyle(color: Colors.white, fontSize: 40),
                       )),
                   SizedBox(
@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
                   FadeAnimation(
                       1.3,
                       const Text(
-                        "Welcome Back",
+                        "Welcome",
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       )),
                 ],
@@ -83,21 +83,21 @@ class LoginPage extends StatelessWidget {
                                         offset: Offset(0, 10))
                                   ]),
                               child: Column(
-                                children: <Widget>[LoginForm()],
+                                children: <Widget>[SignUpForm()],
                               ),
                             )),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        FadeAnimation(
-                            1.5,
-                            InkWell(
-                              onTap: () {},
-                              child: Text(
-                                "Forgot Password?",
-                                style: TextStyle(color: Config.primaryColor),
-                              ),
-                            )),
+                        // SizedBox(
+                        //   height: 40,
+                        // ),
+                        // FadeAnimation(
+                        //     1.5,
+                        //     InkWell(
+                        //       onTap: () {},
+                        //       child: Text(
+                        //         "Forgot Password?",
+                        //         style: TextStyle(color: Config.primaryColor),
+                        //       ),
+                        //     )),
                         // SizedBox(
                         //   height: 40,
                         // ),
@@ -173,18 +173,16 @@ class LoginPage extends StatelessWidget {
                             )
                           ],
                         ),
-                        Config.spaceSmall,
-                        FadeAnimation(
-                            1.7,
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed('sign_up_page');
-                              },
-                              child: Text(
-                                "Don't have an account?",
-                                style: TextStyle(color: Config.primaryColor),
-                              ),
-                            )),
+                        // Config.spaceSmall,
+                        // FadeAnimation(
+                        //     1.7,
+                        //     InkWell(
+                        //       onTap: () {},
+                        //       child: Text(
+                        //         "Don't have an account?",
+                        //         style: TextStyle(color: Config.primaryColor),
+                        //       ),
+                        //     )),
                       ],
                     ),
                   ),
