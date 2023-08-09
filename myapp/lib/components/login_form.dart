@@ -17,25 +17,33 @@ class _LoginFormState extends State<LoginForm> {
   final _passController = TextEditingController();
   bool obsecurePass = true;
 
-  void _handleLogin() async {
+  Future<void> _handleLogin() async {
     if (_formKey.currentState!.validate()) {
-      // Form validation succeeded, proceed with login request
-
       final String email = _emailController.text;
       final String password = _passController.text;
 
-      // Replace this URL with your login API endpoint
-      // TODO save hosturl in .env file and get it from there
-      final String loginUrl = 'http://localhost:8000/api/login/';
+      final Map<String, String> headers = {
+        'Content-Type': 'application/json',
+        'Cookie':
+            'csrftoken=R06LShjWPruviQkF1YFsFH8GpKMRMHE7; sessionid=1cjgapvyu2zzj7thgn1ea9yrhioer3nl'
+      };
 
-      final response = await http.post(
+      final String loginUrl = 'http://localhost:8000/api/login/';
+      final Map<String, String> data = {
+        'username': email,
+        'password': password,
+      };
+
+
+      final http.Response response = await http.post(
         Uri.parse(loginUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'username': email, 'password': password}),
+        headers: headers,
+        body: jsonEncode(data),
       );
 
+
       if (response.statusCode == 200) {
-        // Login successful, navigate to main screen
+        // Login successful, navigate to the main screen
         Navigator.of(context).pushNamed('main');
       } else {
         // Login failed, show an error message
@@ -54,6 +62,7 @@ class _LoginFormState extends State<LoginForm> {
             ],
           ),
         );
+      }
       }
     }
   }
@@ -85,7 +94,7 @@ class _LoginFormState extends State<LoginForm> {
               obscureText: true,
               cursorColor: Config.primaryColor,
               decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey)),
                   hintText: 'Password',
                   labelText: 'Password',
@@ -108,13 +117,10 @@ class _LoginFormState extends State<LoginForm> {
             ),
             Config.spaceSmall,
             Button(
-              title: 'Login',
-              width: 150,
-              disable: false,
-              onPressed: () {
-                Navigator.of(context).pushNamed('main');
-              },
-            )
+                title: 'Login',
+                width: 150,
+                disable: false,
+                onPressed: _handleLogin)
           ],
         ));
   }
