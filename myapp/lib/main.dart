@@ -8,6 +8,10 @@ import 'package:myapp/screens/success_booked.dart';
 import 'package:myapp/screens/user_profile.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:myapp/utils/main_layout.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
+
+import 'components/datacomponents/auth_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,42 +26,45 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Color(0xFF35578B),
+    return ChangeNotifierProvider<ChangeNotifier>(
+      create: (context) => AuthProvider(), // Provide the AuthProvider
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Color(0xFF35578B),
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+              focusColor: Config.primaryColor,
+              border: Config.outlinedBorder,
+              focusedBorder: Config.focusBorder,
+              errorBorder: Config.errorBorder,
+              enabledBorder: Config.outlinedBorder,
+              floatingLabelStyle: TextStyle(color: Config.primaryColor),
+              prefixIconColor: Colors.black38),
+          scaffoldBackgroundColor: Colors.white,
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              backgroundColor: Color(0xFF35578B),
+              selectedItemColor: Colors.white,
+              showSelectedLabels: true,
+              showUnselectedLabels: false,
+              unselectedItemColor: Colors.grey,
+              elevation: 10,
+              type: BottomNavigationBarType.fixed),
         ),
-        inputDecorationTheme: InputDecorationTheme(
-            focusColor: Config.primaryColor,
-            border: Config.outlinedBorder,
-            focusedBorder: Config.focusBorder,
-            errorBorder: Config.errorBorder,
-            enabledBorder: Config.outlinedBorder,
-            floatingLabelStyle: TextStyle(color: Config.primaryColor),
-            prefixIconColor: Colors.black38),
-        scaffoldBackgroundColor: Colors.white,
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Color(0xFF35578B),
-            selectedItemColor: Colors.white,
-            showSelectedLabels: true,
-            showUnselectedLabels: false,
-            unselectedItemColor: Colors.grey,
-            elevation: 10,
-            type: BottomNavigationBarType.fixed),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginPage(),
+          'main': (context) => MainLayout(),
+          'doc_details': (context) => DoctorDetails(),
+          'booking_page': (context) => BookingPage(),
+          'success_page': (context) => AppointmentBooked(),
+          'user_profile': (context) => UserProfile(),
+          'fav_page': (context) => FavPage(),
+          'sign_up_page': (context) => RegistrationPage()
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginPage(),
-        'main': (context) => MainLayout(),
-        'doc_details': (context) => DoctorDetails(),
-        'booking_page': (context) => BookingPage(),
-        'success_page': (context) => AppointmentBooked(),
-        'user_profile': (context) => UserProfile(),
-        'fav_page': (context) => FavPage(),
-        'sign_up_page': (context) => RegistrationPage()
-      },
     );
   }
 }
