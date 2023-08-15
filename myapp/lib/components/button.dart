@@ -20,6 +20,7 @@ class Button extends StatelessWidget {
       width: width,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+            shape: StadiumBorder(),
             backgroundColor: Config.primaryColor,
             foregroundColor: Colors.white,
           ),

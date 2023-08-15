@@ -19,9 +19,8 @@ class RegistrationPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+          Color.fromRGBO(28, 38, 62, 1),
           Color.fromARGB(255, 53, 87, 139),
-          Color.fromARGB(255, 143, 171, 213),
-          Color.fromARGB(255, 79, 115, 187),
         ])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,9 +77,8 @@ class RegistrationPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: const [
                                     BoxShadow(
-                                        color: Color.fromARGB(79, 53, 87, 139),
-                                        blurRadius: 20,
-                                        offset: Offset(0, 10))
+                                      color: Color.fromARGB(79, 53, 87, 139),
+                                    )
                                   ]),
                               child: Column(
                                 children: <Widget>[SignUpForm()],

@@ -1,21 +1,40 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myapp/components/appointment_card.dart';
 import 'package:myapp/components/doctor_card.dart';
 import 'package:myapp/components/search_field.dart';
+import 'package:myapp/components/sign_up_form.dart';
 import 'package:myapp/utils/config.dart';
+import 'package:myapp/utils/request.dart';
+
+import 'package:velocity_x/velocity_x.dart';
 
 import 'animated_drawer.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  const HomePage({Key? key}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey(); // Add this line
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  Map<String, dynamic> userData = {}; // To store fetched user data
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData().then((data) {
+      setState(() {
+        userData = data;
+      });
+    }).catchError((error) {
+      print('Error fetching user data: $error');
+    });
+  }
+//
 
   void _openDrawer(BuildContext context) {
     if (_scaffoldKey.currentState != null) {
@@ -32,6 +51,8 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final username = userData['username'] as String;
+
     Config().init(context);
 
     return Scaffold(
@@ -64,19 +85,18 @@ class _HomePageState extends State<HomePage> {
               //     ],
               //   ),
               // ),
+
               GestureDetector(
                 onTap: () => _openDrawer(context),
                 child: Card(
                   elevation: null,
                   child: ListTile(
-                    leading: CircleAvatar(
-                        backgroundImage:
-                            AssetImage("assets/images/profile_pic1.jpg")),
-                    title: Text("John Doe"),
-                    subtitle: Text("Brutus' companion"),
+                    title: Text(username),
+                    // subtitle: Text("Brutus' companion"),
                   ),
                 ),
               ),
+
               Config.spaceSmall,
 
               //category section
@@ -155,4 +175,12 @@ class _HomePageState extends State<HomePage> {
       drawer: AnimatedDrawer(),
     );
   }
+}
+
+Future<Map<String, dynamic>> fetchUserData() async {
+  final Map<String, dynamic> userData =
+      await request('http://localhost:8000/api/user_profile/', 'GET');
+  print(userData);
+
+  return userData;
 }

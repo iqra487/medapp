@@ -42,7 +42,7 @@ class Config {
       borderSide: BorderSide(color: Colors.red));
 
   // static const primaryColor = Color.fromARGB(255, 39, 179, 239);
-  static const primaryColor = Color.fromARGB(255, 53, 87, 139);
+  static const primaryColor = Color.fromRGBO(28, 38, 62, 1);
   // static const primaryColor = Color.fromRGBO(168, 169, 211, 0.8);
 
   static const blueGradientColor = RadialGradient(

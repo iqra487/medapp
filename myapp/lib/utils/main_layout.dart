@@ -1,12 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:myapp/components/sign_up_form.dart';
 import 'package:myapp/screens/appointment_page.dart';
 import 'package:myapp/screens/chat_page.dart';
 import 'package:myapp/screens/favorite_page.dart';
 import 'package:myapp/screens/home_page.dart';
 
 class MainLayout extends StatefulWidget {
-  const MainLayout({super.key});
+  const MainLayout({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MainLayout> createState() => _MainLayoutState();

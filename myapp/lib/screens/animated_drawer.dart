@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart'; // For loading images from a URL
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'; // For loading images from a URL
 
 class AnimatedDrawer extends StatelessWidget {
   @override
@@ -80,8 +81,10 @@ class AnimatedDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout),
             title: Text("Logout"),
-            onTap: () {
-              // Handle logout here
+            onTap: () async {
+              final storage = new FlutterSecureStorage();
+              await storage.delete(key: 'token');
+              Navigator.of(context).pushNamed('/');
             },
           ),
         ],

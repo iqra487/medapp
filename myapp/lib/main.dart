@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/screens/auth_page.dart';
 import 'package:myapp/screens/booking_page.dart';
+import 'package:myapp/screens/continue_as_page.dart';
 import 'package:myapp/screens/doctor_details.dart';
 import 'package:myapp/screens/favorite_page.dart';
 import 'package:myapp/screens/registration_page.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ChangeNotifier>(
       create: (context) => AuthProvider(), // Provide the AuthProvider
+
       child: MaterialApp(
         navigatorKey: navigatorKey,
         title: 'Flutter Demo',
@@ -55,7 +57,8 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => LoginPage(),
+          'login': (context) => LoginPage(),
+          '/': (context) => ContinueAs(),
           'main': (context) => MainLayout(),
           'doc_details': (context) => DoctorDetails(),
           'booking_page': (context) => BookingPage(),

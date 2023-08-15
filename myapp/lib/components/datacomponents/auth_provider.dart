@@ -18,6 +18,7 @@ class AuthProvider with ChangeNotifier {
       'username': email,
       'password': password,
     };
+    print("data: $data;");
 
     final http.Response response = await http.post(
       Uri.parse(loginUrl),
