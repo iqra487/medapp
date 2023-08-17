@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/components/button.dart';
-import 'package:myapp/components/sign_up_form.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:http/http.dart' as http; // Import the http package
 import 'dart:convert';
