@@ -1,22 +1,20 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:myapp/components/sign_up_form.dart';
-import 'package:myapp/screens/appointment_page.dart';
-import 'package:myapp/screens/chat_page.dart';
-import 'package:myapp/screens/favorite_page.dart';
-import 'package:myapp/screens/home_page.dart';
 
-class MainLayout extends StatefulWidget {
-  const MainLayout({
+import '../appointment_page.dart';
+import 'chats.dart';
+import 'doc_appointment.dart';
+import 'homepage.dart';
+
+class DocMainLayout extends StatefulWidget {
+  const DocMainLayout({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<MainLayout> createState() => _MainLayoutState();
+  State<DocMainLayout> createState() => _DocMainLayoutState();
 }
 
-class _MainLayoutState extends State<MainLayout> {
+class _DocMainLayoutState extends State<DocMainLayout> {
   int currentPage = 0;
   final PageController _page = PageController();
   @override
@@ -30,9 +28,9 @@ class _MainLayoutState extends State<MainLayout> {
           });
         },
         children: [
-          const HomePage(),
+          const DocHomePage(),
           const AppointmentPage(),
-          ChatPage(),
+          DocChatPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -49,15 +47,15 @@ class _MainLayoutState extends State<MainLayout> {
           });
         },
         items: [
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_outlined),
             label: 'Appointments',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble_outline),
             label: 'Chat',
           ),

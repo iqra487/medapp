@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
     fetchUserData().then((data) {
       setState(() {
         userData = data;
+        print(userData);
       });
     }).catchError((error) {
       print('Error fetching user data: $error');
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    final username = userData['username'] as String;
+    // final username = userData['username'] as String;
 
     Config().init(context);
 
@@ -91,7 +92,8 @@ class _HomePageState extends State<HomePage> {
                 child: Card(
                   elevation: null,
                   child: ListTile(
-                    title: Text(username),
+                    shape: StadiumBorder(),
+                    title: Text("username"),
                     // subtitle: Text("Brutus' companion"),
                   ),
                 ),
@@ -180,7 +182,6 @@ class _HomePageState extends State<HomePage> {
 Future<Map<String, dynamic>> fetchUserData() async {
   final Map<String, dynamic> userData =
       await request('http://localhost:8000/api/user_profile/', 'GET');
-  print(userData);
 
   return userData;
 }
