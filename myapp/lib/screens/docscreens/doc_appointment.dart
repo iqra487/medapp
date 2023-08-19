@@ -172,10 +172,10 @@ class _DocAppointmentPageState extends State<DocAppointmentPage> {
                               SizedBox(
                                 height: 20,
                               ),
-                              ScheduleCard(
-                                borderColor: Color.fromARGB(255, 61, 100, 158),
-                                textColor: Colors.white,
-                              ),
+                              // ScheduleCard(
+                              //   borderColor: Color.fromARGB(255, 61, 100, 158),
+                              //   textColor: Colors.white,
+                              // ),
                             ]),
                       ),
                     );

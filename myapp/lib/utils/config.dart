@@ -47,8 +47,8 @@ class Config {
 
   static const blueGradientColor = RadialGradient(
     colors: [
-      Color.fromARGB(255, 79, 115, 187),
       Color.fromARGB(255, 53, 87, 139),
+      Color.fromRGBO(28, 38, 62, 1),
     ],
     radius: 1,
     focal: Alignment(0.5, -0.5),

@@ -11,6 +11,7 @@ import 'package:myapp/utils/request.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 
+import '../components/datacomponents/user_data.dart';
 import 'animated_drawer.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +23,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   Map<String, dynamic> userData = {}; // To store fetched user data
+
+  late final UserData user;
 
   @override
   void initState() {
@@ -49,7 +52,18 @@ class _HomePageState extends State<HomePage> {
   List<Map<String, dynamic>> medCat = [
     {"icon": FontAwesomeIcons.userDoctor, "category": "General"},
     {"icon": FontAwesomeIcons.userDoctor, "category": "Specialists"},
+    {"icon": FontAwesomeIcons.userDoctor, "category": "Surgeon"},
   ];
+  Map<String, String> usernewData = {
+    "username": "iqra",
+    "email": "iqra@gmail.com"
+  };
+  Map docData = {
+    "username": "Dr Usama",
+    "specialist": "General Physician",
+    "hospitals": "Pet Hospital",
+    "experience": "4 years"
+  };
   @override
   Widget build(BuildContext context) {
     // final username = userData['username'] as String;
@@ -93,8 +107,20 @@ class _HomePageState extends State<HomePage> {
                   elevation: null,
                   child: ListTile(
                     shape: StadiumBorder(),
-                    title: Text("username"),
-                    // subtitle: Text("Brutus' companion"),
+                    title: Text(
+                      userData['username']!,
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 22,
+                          fontStyle: FontStyle.italic),
+                    ),
+                    subtitle: Text(
+                      "Profile",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                          fontStyle: FontStyle.italic),
+                    ),
                   ),
                 ),
               ),
@@ -108,7 +134,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Config.spaceSmall,
               SizedBox(
-                  height: Config.heightSize * 0.07,
+                  height: Config.heightSize * 0.06,
                   // width: Config.widthSize * 0.1,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
@@ -116,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                       medCat.length,
                       (index) {
                         return Container(
-                          width: Config.widthSize * 0.45,
+                          width: Config.widthSize * 0.4,
                           child: Card(
                             margin: const EdgeInsets.only(right: 20),
                             color: Config.primaryColor,
@@ -156,7 +182,12 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               Config.spaceSmall,
-              AppointmentCard(),
+              AppointmentCard(
+                username: docData['uername'],
+                specialty: docData['specialist'],
+                dayTime: "Mon 11:59AM",
+                hospital: docData['hospitals'],
+              ),
               Config.spaceSmall,
               //
               Text(
@@ -166,7 +197,14 @@ class _HomePageState extends State<HomePage> {
               Config.spaceSmall,
               Column(
                 children: List.generate(10, (index) {
-                  return const DoctorCard(route: 'doc_details');
+                  return DoctorCard(
+                    route: 'doc_details',
+                    username: docData['username'],
+                    specialty: docData['specialist'],
+                    hospitals: docData['hospitals'],
+                    experience: docData['experince'],
+                  );
+                  ;
                 }),
               )
               // doctors card
@@ -174,7 +212,7 @@ class _HomePageState extends State<HomePage> {
           ),
         )),
       ),
-      drawer: AnimatedDrawer(),
+      drawer: AnimatedDrawer(userData: usernewData),
     );
   }
 }

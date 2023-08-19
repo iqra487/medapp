@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/components/datacomponents/user_data.dart';
+import 'package:myapp/utils/config.dart';
 
-class UserProfile extends StatelessWidget {
+class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
+
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
+
+class _UserProfileState extends State<UserProfile> {
+  Map<String, String> userData = {
+    "username": "iqra",
+    "email": "iqra@gmail.com"
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("User Profile"),
+        title: Text(userData['username'] ?? ""),
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage('assets/images/profile_pic1.jpg')),
-            SizedBox(height: 16),
             Text(
-              "John Doe",
+              userData['username'] ?? "",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
@@ -30,19 +38,16 @@ class UserProfile extends StatelessWidget {
             SizedBox(height: 16),
             Divider(),
             ListTile(
-              leading: Icon(Icons.email),
-              title: Text("john.doe@example.com"),
+              leading: Icon(
+                Icons.email,
+                color: Config.primaryColor,
+              ),
+              title: Text(userData['email'] ?? ""),
               onTap: () {
                 // Handle email tap if needed
               },
             ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text("+1 (123) 456-7890"),
-              onTap: () {
-                // Handle phone tap if needed
-              },
-            ),
+
             // You can add more user information here like pet names, pet records, etc.
           ],
         ),

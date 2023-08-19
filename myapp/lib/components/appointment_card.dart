@@ -1,9 +1,20 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AppointmentCard extends StatefulWidget {
-  const AppointmentCard({super.key});
+  const AppointmentCard({
+    Key? key,
+    required this.username,
+    required this.dayTime,
+    required this.specialty,
+    required this.hospital,
+  }) : super(key: key);
+  final String? username;
+  final String? dayTime;
+  final String? specialty;
+  final String? hospital;
 
   @override
   State<AppointmentCard> createState() => _AppointmentCardState();
@@ -22,32 +33,39 @@ class _AppointmentCardState extends State<AppointmentCard> {
       child: Material(
         color: Colors.transparent,
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
           child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    backgroundImage:
-                        AssetImage('assets/images/doctor_pic1.jpg'),
-                    radius: 50,
-                  ),
-                  SizedBox(
-                    width: 50,
-                  ),
+                  // CircleAvatar(
+                  //   backgroundImage:
+                  //       AssetImage('assets/images/doctor_pic1.jpg'),
+                  //   radius: 50,
+                  // ),
+                  // SizedBox(
+                  //   width: 50,
+                  // ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       "Dr Pawan Kumar".text.white.bold.xl.make(),
                       SizedBox(height: 2),
                       "General Physician".text.white.make(),
                       Config.spaceSmall,
-                      ScheduleCard(
-                          borderColor: Colors.white, textColor: Colors.black),
-                      Config.spaceSmall,
+
+                      // Config.spaceSmall,
                     ],
                   ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  ScheduleCard(
+                      dayTime: widget.dayTime!,
+                      borderColor: Colors.white,
+                      textColor: Colors.black),
                 ],
               ),
               Row(
@@ -81,9 +99,15 @@ class _AppointmentCardState extends State<AppointmentCard> {
 }
 
 class ScheduleCard extends StatelessWidget {
-  ScheduleCard({required this.borderColor, required this.textColor, super.key});
+  ScheduleCard({
+    Key? key,
+    required this.borderColor,
+    required this.textColor,
+    required this.dayTime,
+  }) : super(key: key);
   final Color borderColor;
   final Color textColor;
+  final String dayTime;
 
   @override
   Widget build(BuildContext context) {
@@ -93,13 +117,13 @@ class ScheduleCard extends StatelessWidget {
         // width: double.infinity,
         padding: const EdgeInsets.all(10),
         child: Text(
-          'July 5th 9:00AM',
+          dayTime,
           style: TextStyle(
               color: textColor, fontWeight: FontWeight.bold, fontSize: 16),
         ));
   }
 }
-// child: Row(
+// / child: Row(
 //   // crossAxisAlignment: CrossAxisAlignment.center,
 //   children: [
 //     Icon(

@@ -37,7 +37,7 @@ class _SignUpFormState extends State<SignUpForm> {
         'password': password,
       };
 
-      final registrationUrl = 'http://127.0.0.1:8000/api/register/';
+      final registrationUrl = 'http://localhost:8000/api/register/';
 
       try {
         final response = await http.post(
