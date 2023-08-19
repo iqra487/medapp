@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/components/splash.dart';
 import 'package:myapp/screens/auth_page.dart';
 import 'package:myapp/screens/booking_page.dart';
 import 'package:myapp/screens/continue_as_page.dart';
@@ -58,8 +59,9 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          'login': (context) => LoginPage(),
           '/': (context) => ContinueAs(),
+          'login': (context) => LoginPage(),
+          'splash': (context) => SplashScreen(),
           'main': (context) => MainLayout(),
           'doc_details': (context) => DoctorDetails(),
           'booking_page': (context) => BookingPage(),

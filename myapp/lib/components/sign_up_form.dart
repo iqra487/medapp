@@ -37,7 +37,7 @@ class _SignUpFormState extends State<SignUpForm> {
         'password': password,
       };
 
-      final registrationUrl = 'http://localhost:8000/api/register/';
+      final registrationUrl = 'http://127.0.0.1:8000/api/register/';
 
       try {
         final response = await http.post(
@@ -48,7 +48,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
         if (response.statusCode == 200) {
           final responseData = jsonDecode(response.body);
-          final user = responseData['user'];
+          print(responseData);
           final token = responseData['token'];
           print("token: $token");
           await storage.write(key: 'token', value: responseData['token']);
@@ -59,7 +59,7 @@ class _SignUpFormState extends State<SignUpForm> {
           // Store the token securely
 
           // Navigate to the main screen
-          Navigator.of(context).pushNamed('main');
+          Navigator.of(context).pushNamed('splash');
           // Navigator.of(context).pushReplacement(
           //   MaterialPageRoute(
           //     builder: (context) => HomePage(

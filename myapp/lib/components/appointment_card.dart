@@ -51,9 +51,29 @@ class _AppointmentCardState extends State<AppointmentCard> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      "Dr Pawan Kumar".text.white.bold.xl.make(),
+                      Text(
+                        "${widget.username}",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20),
+                      ),
                       SizedBox(height: 2),
-                      "General Physician".text.white.make(),
+                      Text(
+                        "${widget.specialty}",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 14),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        "${widget.hospital}",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 14),
+                      ),
                       Config.spaceSmall,
 
                       // Config.spaceSmall,
@@ -117,38 +137,9 @@ class ScheduleCard extends StatelessWidget {
         // width: double.infinity,
         padding: const EdgeInsets.all(10),
         child: Text(
-          dayTime,
+          "on $dayTime",
           style: TextStyle(
               color: textColor, fontWeight: FontWeight.bold, fontSize: 16),
         ));
   }
 }
-// / child: Row(
-//   // crossAxisAlignment: CrossAxisAlignment.center,
-//   children: [
-//     Icon(
-//       Icons.calendar_today,
-//       color: Colors.black,
-//       size: 15,
-//     ),
-//     SizedBox(
-//       width: 3,
-//     ),
-//     "Monday 11/28/22".text.black.bold.make(),
-//     SizedBox(
-//       width: 10,
-//     ),
-//     Icon(
-//       Icons.access_alarm,
-//       color: Colors.black,
-//       size: 17,
-//     ),
-//     SizedBox(
-//       width: 3,
-//     ),
-//     Flexible(child: "2:00PM".text.black.bold.make())
-//   ],
-//       // ),
-//     );
-//   }
-// }

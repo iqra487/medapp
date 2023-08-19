@@ -75,14 +75,16 @@ class _ContinueAsState extends State<ContinueAs> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Welcome To Petcare ",
-                        style: TextStyle(
-                            fontSize: 35,
-                            color: Colors.white,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.italic),
+                      child: Center(
+                        child: Text(
+                          "Welcome ",
+                          style: TextStyle(
+                              fontSize: 35,
+                              color: Colors.white,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w700,
+                              fontStyle: FontStyle.italic),
+                        ),
                       ),
                     ),
                     // SizedBox(
