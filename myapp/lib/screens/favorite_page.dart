@@ -38,9 +38,8 @@ class _FavPageState extends State<FavPage> {
               Expanded(
                 child: ListView.builder(itemBuilder: (context, index) {
                   return DoctorCard(
-                    route: 'doc_details',
+                    id: 1,
                     username: docData['username'],
-                    specialty: docData['specialist'],
                     hospitals: docData['hospitals'],
                     experience: docData['experince'],
                   );

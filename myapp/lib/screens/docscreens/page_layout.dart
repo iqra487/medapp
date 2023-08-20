@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../appointment_page.dart';
 import 'chats.dart';
 import 'doc_appointment.dart';
-import 'homepage.dart';
+import 'doc_profile.dart';
 
 class DocMainLayout extends StatefulWidget {
   const DocMainLayout({
@@ -27,11 +27,7 @@ class _DocMainLayoutState extends State<DocMainLayout> {
             currentPage = value;
           });
         },
-        children: [
-          const DocHomePage(),
-          const AppointmentPage(),
-          DocChatPage(),
-        ],
+        children: [const AppointmentPage(), DocChatPage(), DocProfile()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
@@ -48,16 +44,16 @@ class _DocMainLayoutState extends State<DocMainLayout> {
         },
         items: [
           const BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          const BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today_outlined),
             label: 'Appointments',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble_outline),
             label: 'Chat',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
           ),
         ],
       ),

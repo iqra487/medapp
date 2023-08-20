@@ -25,7 +25,16 @@ class _AppointmentBookedState extends State<AppointmentBooked> {
           Container(
             width: double.infinity,
             alignment: Alignment.center,
-            child: "Successfully Booked".text.bold.size(20).make(),
+            child: "Your request has been sent".text.bold.size(20).make(),
+          ),
+          Container(
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: "Doctor will respond to your request shortly"
+                .text
+                .bold
+                .size(20)
+                .make(),
           ),
           Spacer(),
           Padding(

@@ -174,7 +174,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                               ),
                               ScheduleCard(
                                 dayTime: 'Mon 11:59AM',
-                                borderColor: Color.fromARGB(255, 61, 100, 158),
+                                borderColor: Config.primaryColor,
                                 textColor: Colors.white,
                               ),
                             ]),

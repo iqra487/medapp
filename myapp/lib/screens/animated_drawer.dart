@@ -6,7 +6,7 @@ import 'package:myapp/utils/config.dart'; // For loading images from a URL
 
 // ignore: must_be_immutable
 class AnimatedDrawer extends StatefulWidget {
-  Map<String, String> userData;
+  Map<String, dynamic> userData;
   AnimatedDrawer({
     Key? key,
     required this.userData,

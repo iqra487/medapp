@@ -21,7 +21,6 @@ Future<Map<String, dynamic>> request(String uri, String method) async {
   if (response.statusCode == 200) {
     String responseString = await response.stream.bytesToString();
     Map<String, dynamic> data = await json.decode(responseString);
-    print(data);
     return data;
   } else {
     throw Exception('request failed');

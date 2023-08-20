@@ -3,6 +3,8 @@ import 'package:myapp/components/splash.dart';
 import 'package:myapp/screens/auth_page.dart';
 import 'package:myapp/screens/booking_page.dart';
 import 'package:myapp/screens/continue_as_page.dart';
+import 'package:myapp/screens/docscreens/doclogin.dart';
+import 'package:myapp/screens/docscreens/docloginform.dart';
 import 'package:myapp/screens/docscreens/page_layout.dart';
 import 'package:myapp/screens/doctor_details.dart';
 import 'package:myapp/screens/favorite_page.dart';
@@ -61,9 +63,10 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => ContinueAs(),
           'login': (context) => LoginPage(),
+          'doc_login': (context) => DocLogin(),
           'splash': (context) => SplashScreen(),
           'main': (context) => MainLayout(),
-          'doc_details': (context) => DoctorDetails(),
+          // 'doc_details': (context) => DoctorDetails(),
           'booking_page': (context) => BookingPage(),
           'success_page': (context) => AppointmentBooked(),
           'user_profile': (context) => UserProfile(),

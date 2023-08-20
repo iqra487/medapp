@@ -8,12 +8,12 @@ class AppointmentCard extends StatefulWidget {
     Key? key,
     required this.username,
     required this.dayTime,
-    required this.specialty,
+    required this.description,
     required this.hospital,
   }) : super(key: key);
   final String? username;
   final String? dayTime;
-  final String? specialty;
+  final String? description;
   final String? hospital;
 
   @override
@@ -60,7 +60,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
                       ),
                       SizedBox(height: 2),
                       Text(
-                        "${widget.specialty}",
+                        "${widget.description}",
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w300,

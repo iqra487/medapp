@@ -1,22 +1,26 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:myapp/screens/doctor_details.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import 'datacomponents/user_data.dart';
 
 class DoctorCard extends StatefulWidget {
   const DoctorCard({
     Key? key,
-    required this.route,
+    required this.id,
     required this.username,
-    required this.specialty,
     required this.hospitals,
     required this.experience,
+    this.doctor,
   }) : super(key: key);
-  final String route;
+
+  final int id; // The doctor's ID
   final String? username;
-  final String? specialty;
   final String? hospitals;
   final String? experience;
+  final Doctor? doctor;
 
   @override
   State<DoctorCard> createState() => _DoctorCardState();
@@ -61,7 +65,7 @@ class _DoctorCardState extends State<DoctorCard> {
                         ),
                         Spacer(),
                         Text(
-                          "Specialty:   ${widget.specialty!}",
+                          "Experience:   ${widget.experience!}+ years",
                           style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 14,
@@ -134,7 +138,10 @@ class _DoctorCardState extends State<DoctorCard> {
               ),
             )),
         onTap: () {
-          Navigator.of(context).pushNamed(widget.route);
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => DoctorDetails(
+                    id: widget.id,
+                  )));
         },
       ),
     );

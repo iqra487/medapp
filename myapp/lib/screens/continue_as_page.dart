@@ -155,7 +155,7 @@ class _ContinueAsState extends State<ContinueAs> {
                                                   shape: StadiumBorder()),
                                               onPressed: () {
                                                 Navigator.of(context)
-                                                    .pushNamed('doc_main');
+                                                    .pushNamed('doc_login');
                                               },
                                               child: Row(
                                                 children: [
