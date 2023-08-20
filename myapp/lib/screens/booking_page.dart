@@ -4,6 +4,7 @@ import 'package:myapp/components/button.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../components/custom_appbar.dart';
+import '../components/datacomponents/user_data.dart';
 import '../utils/config.dart';
 //appointment booking page
 
@@ -15,6 +16,23 @@ class BookingPage extends StatefulWidget {
 }
 
 class _BookingPageState extends State<BookingPage> {
+  late int doctorId;
+  late Doctor doctor;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Retrieve the arguments passed from the previous screen
+    final Map<String, dynamic>? arguments =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+
+    if (arguments != null) {
+      doctorId = arguments['doctorId'] as int;
+      doctor = arguments['doctor'] as Doctor;
+    }
+  }
+
   CalendarFormat _format = CalendarFormat.month;
   DateTime _focusDay = DateTime.now();
   DateTime _currentDay = DateTime.now();
@@ -62,6 +80,7 @@ class _BookingPageState extends State<BookingPage> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     Config().init(context);
     return Scaffold(
@@ -77,59 +96,76 @@ class _BookingPageState extends State<BookingPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
                 child: Center(
-                    child:
-                        "Select Consultation Time".text.bold.xl2.black.make()),
-              )
+                  child: "Select Consultation Time".text.bold.xl2.black.make(),
+                ),
+              ),
             ]),
           ),
           SliverGrid(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return InkWell(
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    setState(() {
-                      _currentIndex = index;
-                      _timeSelected = true;
-                    });
-                  },
-                  //select time
-                  child: Container(
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: _currentIndex == index
-                                ? Colors.white
-                                : Colors.black),
-                        borderRadius: BorderRadius.circular(15),
-                        color: _currentIndex == index
-                            ? Config.primaryColor
-                            : null),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "${index + 9}:00 ${index + 9 < 11 ? "PM" : "AM"}",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: _currentIndex == index ? Colors.white : null),
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return InkWell(
+                splashColor: Colors.transparent,
+                onTap: () {
+                  setState(() {
+                    _currentIndex = index;
+                    _timeSelected = true;
+                  });
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color:
+                          _currentIndex == index ? Colors.white : Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                    color: _currentIndex == index ? Config.primaryColor : null,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "${index + 9}:00 ${index + 9 < 11 ? "PM" : "AM"}",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: _currentIndex == index ? Colors.white : null,
                     ),
                   ),
-                );
-              }, childCount: 8),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, childAspectRatio: 1.5)),
-          //make appointment button
+                ),
+              );
+            }, childCount: 8),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              childAspectRatio: 1.5,
+            ),
+          ),
           SliverToBoxAdapter(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 80),
               child: Button(
-                  width: double.infinity,
-                  title: "make appointment",
-                  //appointment can only be made if time and date are both selected
-                  disable: _timeSelected && _dateSelected ? false : true,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed('success_page');
-                  }),
+                width: double.infinity,
+                title: "Make Appointment",
+                disable: _timeSelected && _dateSelected ? false : true,
+                onPressed: () {
+                  if (_timeSelected && _dateSelected) {
+                    DateTime selectedDate = _currentDay;
+                    int selectedHour = _currentIndex! + 9;
+                    String amPm = selectedHour < 12 ? 'AM' : 'PM';
+                    selectedHour = selectedHour % 12;
+                    String selectedTime = '$selectedHour:00 $amPm';
+
+                    // Now you can use the selectedDate and selectedTime as needed
+                    // For example, you can pass them to the appointment confirmation page.
+                    Navigator.of(context).pushNamed(
+                      'success_page',
+                      arguments: {
+                        'selectedDate': selectedDate,
+                        'selectedTime': selectedTime,
+                      },
+                    );
+                  }
+                },
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
