@@ -72,13 +72,31 @@ class _DoctorCardState extends State<DoctorCard> {
                               color: Colors.black),
                         ),
                         Spacer(),
-                        Text(
-                          "Available at:  ${widget.hospitals!}",
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14,
-                              color: Colors.black),
-                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Available at: ",
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                widget.hospitals!,
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                overflow: TextOverflow
+                                    .ellipsis, // Add this line to handle long hospital names
+                              ),
+                            ),
+                          ],
+                        )
+
                         // Row(
                         //   children: [
                         //     Icon(
