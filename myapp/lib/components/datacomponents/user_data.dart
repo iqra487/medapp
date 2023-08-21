@@ -28,6 +28,40 @@ class Doctor {
     required this.userId,
     required this.hospitals,
   });
+  factory Doctor.fromJson(Map<String, dynamic> json) {
+    if (!json.containsKey('hospitals')) {
+      json['hospitals'] = [];
+    }
+    if (!json.containsKey('description')) {
+      json['description'] = "none";
+    }
+    if (!json.containsKey('experience')) {
+      json['experience'] = 0;
+    }
+    if (!json.containsKey('user_id')) {
+      json['user_id'] = null;
+    }
+
+    List<Hospital> hospitals =
+        (json['hospitals'] as List<dynamic>).map<Hospital>((h) {
+      return Hospital(
+        id: h['id'],
+        name: h['name'],
+      );
+    }).toList();
+
+    return Doctor(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+      description: json['description'],
+      experience: json['experience'],
+      userId: json['user_id'],
+      hospitals: hospitals.isNotEmpty
+          ? hospitals
+          : [Hospital(id: 0, name: 'Default Hospital')],
+    );
+  }
 }
 
 List<Doctor> parseDoctors(String responseBody) {
@@ -73,4 +107,56 @@ Doctor parseDoctor(String responseBody) {
     userId: parsed['user_id'],
     hospitals: hospitals,
   );
+}
+
+class Patient {
+  final int id;
+  final String username;
+  final String email;
+
+  Patient({
+    required this.id,
+    required this.username,
+    required this.email,
+  });
+
+  factory Patient.fromJson(Map<String, dynamic> json) {
+    return Patient(
+      id: json['id'],
+      username: json['username'],
+      email: json['email'],
+    );
+  }
+}
+
+class Appointment {
+  final Patient patient;
+  final Doctor doctor;
+  final String date;
+  final String time;
+  final String status;
+  Appointment({
+    required this.patient,
+    required this.doctor,
+    required this.date,
+    required this.time,
+    required this.status,
+  });
+
+  factory Appointment.fromJson(Map<String, dynamic> json) {
+    return Appointment(
+      patient: Patient.fromJson(json['patient']),
+      doctor: Doctor.fromJson(json['doctor']),
+      date: json['date'],
+      time: json['time'],
+      status: json['status'],
+    );
+  }
+}
+
+List<Appointment> parseAppointments(String responseBody) {
+  final List<dynamic> parsed = json.decode(responseBody);
+  return parsed.map<Appointment>((json) {
+    return Appointment.fromJson(json);
+  }).toList();
 }

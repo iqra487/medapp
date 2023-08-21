@@ -3,23 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../utils/appointmentRequest.dart';
+
 class AppointmentCard extends StatefulWidget {
   const AppointmentCard({
     Key? key,
     required this.username,
     required this.dayTime,
-    required this.description,
     required this.hospital,
+    required this.status,
   }) : super(key: key);
   final String? username;
   final String? dayTime;
-  final String? description;
   final String? hospital;
+  final String? status; // Add status parameter
 
   @override
   State<AppointmentCard> createState() => _AppointmentCardState();
 }
 
+@override
 class _AppointmentCardState extends State<AppointmentCard> {
   @override
   Widget build(BuildContext context) {
@@ -59,13 +62,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
                             fontSize: 20),
                       ),
                       SizedBox(height: 2),
-                      Text(
-                        "${widget.description}",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300,
-                            fontSize: 14),
-                      ),
+
                       SizedBox(height: 2),
                       Text(
                         "${widget.hospital}",

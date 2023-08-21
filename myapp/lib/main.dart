@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
           'splash': (context) => SplashScreen(),
           'main': (context) => MainLayout(),
           // 'doc_details': (context) => DoctorDetails(),
-          'booking_page': (context) => BookingPage(),
+          // 'booking_page': (context) => BookingPage(),
           'success_page': (context) => AppointmentBooked(),
           'user_profile': (context) => UserProfile(),
           'fav_page': (context) => FavPage(),

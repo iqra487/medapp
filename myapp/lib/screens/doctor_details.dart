@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:myapp/components/button.dart';
 import 'package:myapp/components/custom_appbar.dart';
+import 'package:myapp/screens/booking_page.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -69,7 +70,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
         body: (doctor != null)
             ? SafeArea(
                 child: SingleChildScrollView(
-                child: Column(
+                    child: Column(
                   children: [
                     //doc name, picture and qualification details, hospital names
                     AboutDoctor(
@@ -83,39 +84,37 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     Padding(
                       padding: EdgeInsets.fromLTRB(20, 20, 20, 5),
                       child: Button(
-                        width: double.infinity,
-                        title: 'Start chat',
-                        disable: false,
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(
-                            'booking_page',
-                            arguments:
-                                widget.id, // Pass the doctor's ID as arguments
-                          );
-                        },
-                      ),
+                          width: double.infinity,
+                          title: 'Start chat',
+                          disable: false,
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => BookingPage(
+                                      doctorId: widget.id,
+                                    )));
+                          }),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(20, 20, 20, 5),
-                      child: Button(
-                        width: double.infinity,
-                        title: 'Request Appointment',
-                        disable: false,
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(
-                            'booking_page',
-                            arguments: {
-                              'doctorId': widget.id,
-                              'doctor': doctor,
-                            },
+                        padding: EdgeInsets.fromLTRB(20, 20, 20, 5),
+                        child: Button(
+                          width: double.infinity,
+                          title: 'Request Appointment',
+                          disable: false,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BookingPage(
+                                  doctorId: widget.id,
+                                ),
+                              ),
+                            );
+                          },
 // Pass the doctor's ID as arguments
-                          );
-                        },
-                      ),
-                    )
+                        )),
                   ],
-                ),
-              ))
+                )),
+              )
             : Center(
                 child: CircularProgressIndicator(),
               ));

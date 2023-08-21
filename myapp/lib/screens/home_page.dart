@@ -166,8 +166,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Config.spaceSmall,
                       AppointmentCard(
+                        status: 'pending_approval',
                         username: 'Dr Usama',
-                        description: "General Physician",
                         dayTime: "Mon 11:59AM",
                         hospital: "Pet Hospital",
                       ),
@@ -231,6 +231,10 @@ Future<Map<String, dynamic>> fetchUserData() async {
 
   final Map<String, dynamic> userData =
       await request('http://localhost:8000/api/user_profile/', 'GET');
+
+  // Save the user data to secure storage
+  final storage = FlutterSecureStorage();
+  await storage.write(key: 'userData', value: json.encode(userData));
 
   return userData;
 }

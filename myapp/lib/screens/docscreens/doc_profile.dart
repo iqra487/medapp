@@ -14,7 +14,7 @@ class DocProfile extends StatefulWidget {
 }
 
 class _DocProfileState extends State<DocProfile> {
-  List<dynamic> userData = [];
+  Map<String, dynamic> userData = {};
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _DocProfileState extends State<DocProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(userData[0]['username'] ?? ""),
+        title: Text(userData['name']),
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -43,7 +43,7 @@ class _DocProfileState extends State<DocProfile> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              userData[0]['username'] ?? "",
+              userData['name'],
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
@@ -58,7 +58,7 @@ class _DocProfileState extends State<DocProfile> {
                 Icons.email,
                 color: Config.primaryColor,
               ),
-              title: Text(userData[0]['email'] ?? ""),
+              title: Text(userData['name']),
               onTap: () {
                 // Handle email tap if needed
               },
@@ -72,33 +72,11 @@ class _DocProfileState extends State<DocProfile> {
   }
 }
 
-Future<List<dynamic>> fetchDoctorData() async {
+Future<Map<String, dynamic>> fetchDoctorData() async {
   await Future.delayed(Duration(seconds: 2));
 
-  final List<dynamic> userData =
-      await requestList('http://localhost:8000/api/doctors/', 'GET');
+  final Map<String, dynamic> userData =
+      await request('http://localhost:8000/api/user_profile/', 'GET');
 
   return userData;
-}
-
-Future<List<dynamic>> requestList(String uri, String method) async {
-  String? value = await storage.read(key: 'token');
-  var headers = {
-    'Authorization': 'token $value',
-    // 'Cookie':
-    //     'csrftoken=tjr58d42MagboZgX4WgjTxd0v41MlfiT; sessionid=1cjgapvyu2zzj7thgn1ea9yrhioer3nl'
-  };
-  var request = http.Request(method, Uri.parse(uri));
-
-  request.headers.addAll(headers);
-
-  http.StreamedResponse response = await request.send();
-
-  if (response.statusCode == 200) {
-    String responseString = await response.stream.bytesToString();
-    List<dynamic> data = await json.decode(responseString) as List;
-    return data;
-  } else {
-    throw Exception('request failed');
-  }
 }

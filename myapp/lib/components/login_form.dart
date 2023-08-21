@@ -87,8 +87,8 @@ class _LoginFormState extends State<LoginForm> {
               decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey)),
-                  hintText: 'Email Address',
-                  labelText: 'Email',
+                  hintText: 'Username',
+                  labelText: 'username',
                   alignLabelWithHint: true,
                   prefixIcon: Icon(Icons.email_outlined),
                   prefixIconColor: Colors.black38),
@@ -97,7 +97,7 @@ class _LoginFormState extends State<LoginForm> {
             TextFormField(
               controller: _passController,
               keyboardType: TextInputType.visiblePassword,
-              obscureText: true,
+              obscureText: obsecurePass,
               cursorColor: Config.primaryColor,
               decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(

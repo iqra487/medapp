@@ -1,35 +1,86 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http; // Import the http package
+import 'package:intl/intl.dart';
 import 'package:myapp/components/button.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
+
 import '../components/custom_appbar.dart';
 import '../components/datacomponents/user_data.dart';
+import '../utils/appointmentRequest.dart';
 import '../utils/config.dart';
+import 'doctor_details.dart';
+
 //appointment booking page
 
 class BookingPage extends StatefulWidget {
-  const BookingPage({super.key});
+  final int doctorId;
+  const BookingPage({
+    Key? key,
+    required this.doctorId,
+  }) : super(key: key);
 
   @override
   State<BookingPage> createState() => _BookingPageState();
 }
 
 class _BookingPageState extends State<BookingPage> {
-  late int doctorId;
-  late Doctor doctor;
+  Doctor? doctor; // Variable to store the doctor's data
+  int? userId;
 
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+
+  //   // Retrieve the arguments passed from the previous screen
+  //   final Map<String, dynamic>? arguments =
+  //       ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+
+  //   if (arguments != null) {
+  //     doctorId = arguments['doctorId'] as int?;
+  //     doctor = arguments['doctor'] as Doctor;
+  //     print(doctorId);
+  //   }
+  // }
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    fetchDoctorDetails(); // Fetch the doctor's data based on the id
+    getUserDataFromStorage().then((userData) {
+      setState(() {
+        userId = userData['id']; // Extract the user ID from userData
+      });
+    }).catchError((error) {
+      print('Error fetching user data: $error');
+    });
+  }
 
-    // Retrieve the arguments passed from the previous screen
-    final Map<String, dynamic>? arguments =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
+  Future<void> fetchDoctorDetails() async {
+    // Fetch doctor's data using the widget.id
+    try {
+      Doctor fetchedDoctor = await fetchDoctorData(
+          widget.doctorId); // Implement this method to fetch doctor's data
+      setState(() {
+        doctor = fetchedDoctor;
+      });
+    } catch (error) {
+      print('Error fetching doctor details: $error');
+    }
+  }
 
-    if (arguments != null) {
-      doctorId = arguments['doctorId'] as int;
-      doctor = arguments['doctor'] as Doctor;
+  Future<Map<String, dynamic>> getUserDataFromStorage() async {
+    final storage = FlutterSecureStorage();
+    final userDataString = await storage.read(key: 'userData');
+
+    if (userDataString != null) {
+      return json.decode(userDataString);
+    } else {
+      return {}; // Return an empty map if no data is found
     }
   }
 
@@ -123,7 +174,7 @@ class _BookingPageState extends State<BookingPage> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    "${index + 9}:00 ${index + 9 < 11 ? "PM" : "AM"}",
+                    "${(index + 9) % 12 == 0 ? 12 : (index + 9) % 12}:00 ${(index + 9) < 12 ? "AM" : "PM"}",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: _currentIndex == index ? Colors.white : null,
@@ -144,23 +195,50 @@ class _BookingPageState extends State<BookingPage> {
                 width: double.infinity,
                 title: "Make Appointment",
                 disable: _timeSelected && _dateSelected ? false : true,
-                onPressed: () {
-                  if (_timeSelected && _dateSelected) {
+                onPressed: () async {
+                  if (_timeSelected &&
+                      _dateSelected &&
+                      widget.doctorId != null &&
+                      userId != null) {
+                    print(userId);
                     DateTime selectedDate = _currentDay;
                     int selectedHour = _currentIndex! + 9;
-                    String amPm = selectedHour < 12 ? 'AM' : 'PM';
                     selectedHour = selectedHour % 12;
-                    String selectedTime = '$selectedHour:00 $amPm';
+                    String selectedTime = '$selectedHour:00';
 
-                    // Now you can use the selectedDate and selectedTime as needed
-                    // For example, you can pass them to the appointment confirmation page.
-                    Navigator.of(context).pushNamed(
-                      'success_page',
-                      arguments: {
-                        'selectedDate': selectedDate,
-                        'selectedTime': selectedTime,
-                      },
-                    );
+                    // Format the selectedDate as YYYY-MM-DD
+                    // String formattedDate =
+                    //     DateFormat('yyyy-MM-dd').format(selectedDate);
+
+                    // Send the appointment data to the backend
+                    try {
+                      final response = await http.post(
+                        Uri.parse(
+                            'http://localhost:8000/api/doctors/appointments/'),
+                        body: {
+                          'patient_id': userId!.toString(),
+
+                          'date': selectedDate
+                              .toLocal()
+                              .toString()
+                              .split(' ')[0], // Use the formatted date
+                          'time': selectedTime,
+                          'doctor_id': widget.doctorId.toString(),
+                        },
+                      );
+
+                      if (response.statusCode == 201) {
+                        // Appointment created successfully, navigate to confirmation page
+                        Navigator.of(context).pushNamed(
+                          'success_page',
+                        );
+                      } else {
+                        // Handle error cases
+                        print('Failed to create appointment');
+                      }
+                    } catch (e) {
+                      print('Error creating appointment: $e');
+                    }
                   }
                 },
               ),

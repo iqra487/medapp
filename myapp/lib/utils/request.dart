@@ -17,6 +17,7 @@ Future<Map<String, dynamic>> request(String uri, String method) async {
   request.headers.addAll(headers);
 
   http.StreamedResponse response = await request.send();
+  print(await response.statusCode);
 
   if (response.statusCode == 200) {
     String responseString = await response.stream.bytesToString();

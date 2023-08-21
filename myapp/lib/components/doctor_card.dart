@@ -4,6 +4,7 @@ import 'package:myapp/screens/doctor_details.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../screens/booking_page.dart';
 import 'datacomponents/user_data.dart';
 
 class DoctorCard extends StatefulWidget {
@@ -148,7 +149,9 @@ class _DoctorCardState extends State<DoctorCard> {
                         ],
                       ),
                       onPressed: () {
-                        Navigator.of(context).pushNamed("booking_page");
+                        (context) => BookingPage(
+                              doctorId: widget.id,
+                            );
                       },
                     ),
                   ),
