@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/components/splash.dart';
 import 'package:myapp/screens/auth_page.dart';
+import 'package:myapp/screens/booking_page.dart';
+import 'package:myapp/screens/continue_as_page.dart';
+import 'package:myapp/screens/docscreens/doclogin.dart';
+import 'package:myapp/screens/docscreens/docloginform.dart';
+import 'package:myapp/screens/docscreens/page_layout.dart';
+import 'package:myapp/screens/doctor_details.dart';
+import 'package:myapp/screens/favorite_page.dart';
+import 'package:myapp/screens/registration_page.dart';
+import 'package:myapp/screens/success_booked.dart';
+import 'package:myapp/screens/user_profile.dart';
 import 'package:myapp/utils/config.dart';
 import 'package:myapp/utils/main_layout.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
+
+import 'components/datacomponents/auth_provider.dart';
 
 void main() {
   runApp(const MyApp());
+  // MaterialApp(home: LoginPage(),);
 }
 
 class MyApp extends StatelessWidget {
@@ -15,34 +31,50 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorKey: navigatorKey,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        inputDecorationTheme: InputDecorationTheme(
-            focusColor: Config.primaryColor,
-            border: Config.outlinedBorder,
-            focusedBorder: Config.focusBorder,
-            errorBorder: Config.errorBorder,
-            enabledBorder: Config.outlinedBorder,
-            floatingLabelStyle: TextStyle(color: Config.primaryColor),
-            prefixIconColor: Colors.black38),
-        scaffoldBackgroundColor: Colors.white,
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Config.primaryColor,
-            selectedItemColor: Colors.white,
-            showSelectedLabels: true,
-            showUnselectedLabels: false,
-            unselectedItemColor: Colors.grey,
-            elevation: 10,
-            type: BottomNavigationBarType.fixed),
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider<ChangeNotifier>(
+      create: (context) => AuthProvider(), // Provide the AuthProvider
+
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Color(0xFF35578B),
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+              focusColor: Config.primaryColor,
+              border: Config.outlinedBorder,
+              focusedBorder: Config.focusBorder,
+              errorBorder: Config.errorBorder,
+              enabledBorder: Config.outlinedBorder,
+              floatingLabelStyle: TextStyle(color: Config.primaryColor),
+              prefixIconColor: Colors.black38),
+          scaffoldBackgroundColor: Colors.white,
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              backgroundColor: Color(0xFF35578B),
+              selectedItemColor: Colors.white,
+              showSelectedLabels: true,
+              showUnselectedLabels: false,
+              unselectedItemColor: Colors.grey,
+              elevation: 10,
+              type: BottomNavigationBarType.fixed),
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => ContinueAs(),
+          'login': (context) => LoginPage(),
+          'doc_login': (context) => DocLogin(),
+          'splash': (context) => SplashScreen(),
+          'main': (context) => MainLayout(),
+          // 'doc_details': (context) => DoctorDetails(),
+          // 'booking_page': (context) => BookingPage(),
+          'success_page': (context) => AppointmentBooked(),
+          'user_profile': (context) => UserProfile(),
+          'fav_page': (context) => FavPage(),
+          'sign_up_page': (context) => RegistrationPage(),
+          'doc_main': (context) => DocMainLayout()
+        },
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => AuthPage(),
-        'main': (context) => MainLayout(),
-      },
     );
   }
 }

@@ -20,8 +20,10 @@ class Button extends StatelessWidget {
       width: width,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              backgroundColor: Config.primaryColor,
-              foregroundColor: Colors.white),
+            shape: StadiumBorder(),
+            backgroundColor: Config.primaryColor,
+            foregroundColor: Colors.white,
+          ),
           onPressed: disable ? null : onPressed,
           child: Text(
             title,
